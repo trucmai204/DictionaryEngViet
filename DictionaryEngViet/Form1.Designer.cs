@@ -28,12 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            SearchBox = new TextBox();
+            SearchBtn = new Button();
+            ResultBox = new RichTextBox();
+            SuspendLayout();
+            // 
+            // SearchBox
+            // 
+            SearchBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            SearchBox.Location = new Point(220, 36);
+            SearchBox.Name = "SearchBox";
+            SearchBox.Size = new Size(313, 27);
+            SearchBox.TabIndex = 0;
+            // 
+            // SearchBtn
+            // 
+            SearchBtn.Anchor = AnchorStyles.Right;
+            SearchBtn.Location = new Point(535, 36);
+            SearchBtn.Name = "SearchBtn";
+            SearchBtn.Size = new Size(87, 29);
+            SearchBtn.TabIndex = 1;
+            SearchBtn.Text = "Tìm";
+            SearchBtn.UseVisualStyleBackColor = true;
+            // 
+            // ResultBox
+            // 
+            ResultBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ResultBox.Location = new Point(110, 98);
+            ResultBox.Name = "ResultBox";
+            ResultBox.ReadOnly = true;
+            ResultBox.Size = new Size(633, 301);
+            ResultBox.TabIndex = 2;
+            ResultBox.Text = "";
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(853, 450);
+            Controls.Add(ResultBox);
+            Controls.Add(SearchBtn);
+            Controls.Add(SearchBox);
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Dictionary";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private TextBox SearchBox;
+        private Button SearchBtn;
+        private RichTextBox ResultBox;
     }
 }

@@ -35,16 +35,16 @@
             // 
             // SearchBox
             // 
-            SearchBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            SearchBox.Location = new Point(220, 36);
+            SearchBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SearchBox.Location = new Point(110, 20);
             SearchBox.Name = "SearchBox";
-            SearchBox.Size = new Size(313, 27);
+            SearchBox.Size = new Size(445, 27);
             SearchBox.TabIndex = 0;
             // 
             // SearchBtn
             // 
-            SearchBtn.Anchor = AnchorStyles.Right;
-            SearchBtn.Location = new Point(535, 36);
+            SearchBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SearchBtn.Location = new Point(561, 18);
             SearchBtn.Name = "SearchBtn";
             SearchBtn.Size = new Size(87, 29);
             SearchBtn.TabIndex = 1;
@@ -53,11 +53,13 @@
             // 
             // ResultBox
             // 
-            ResultBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ResultBox.Location = new Point(110, 98);
+            ResultBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ResultBox.BackColor = Color.White;
+            ResultBox.BorderStyle = BorderStyle.None;
+            ResultBox.Location = new Point(37, 68);
             ResultBox.Name = "ResultBox";
             ResultBox.ReadOnly = true;
-            ResultBox.Size = new Size(633, 301);
+            ResultBox.Size = new Size(685, 354);
             ResultBox.TabIndex = 2;
             ResultBox.Text = "";
             // 
@@ -65,7 +67,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(853, 450);
+            ClientSize = new Size(758, 450);
             Controls.Add(ResultBox);
             Controls.Add(SearchBtn);
             Controls.Add(SearchBox);

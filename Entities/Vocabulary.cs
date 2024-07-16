@@ -2,7 +2,7 @@
 {
     public class Vocabulary
     {
-        public int Id { get; set; }
+        public int Id { get; }
         public string Word { get; set; }
         public EnumWordType WordTypeId { get; set; }
         public string Pronounciation { get; set; }

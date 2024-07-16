@@ -1,6 +1,6 @@
 ﻿namespace DictionaryEngViet
 {
-    partial class Form1
+    partial class DictionaryEngVie
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@
         {
             SearchBox = new TextBox();
             SearchBtn = new Button();
-            ResultBox = new RichTextBox();
+            DisplayContent = new RichTextBox();
             SuspendLayout();
             // 
             // SearchBox
@@ -50,28 +50,26 @@
             SearchBtn.TabIndex = 1;
             SearchBtn.Text = "Tìm";
             SearchBtn.UseVisualStyleBackColor = true;
+            SearchBtn.Click += SearchBtn_Click;
             // 
-            // ResultBox
+            // DisplayContent
             // 
-            ResultBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ResultBox.BackColor = Color.White;
-            ResultBox.BorderStyle = BorderStyle.None;
-            ResultBox.Location = new Point(37, 68);
-            ResultBox.Name = "ResultBox";
-            ResultBox.ReadOnly = true;
-            ResultBox.Size = new Size(685, 354);
-            ResultBox.TabIndex = 2;
-            ResultBox.Text = "";
+            DisplayContent.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            DisplayContent.Location = new Point(59, 93);
+            DisplayContent.Name = "DisplayContent";
+            DisplayContent.Size = new Size(640, 315);
+            DisplayContent.TabIndex = 2;
+            DisplayContent.Text = "";
             // 
-            // Form1
+            // DictionaryEngVie
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(758, 450);
-            Controls.Add(ResultBox);
+            Controls.Add(DisplayContent);
             Controls.Add(SearchBtn);
             Controls.Add(SearchBox);
-            Name = "Form1";
+            Name = "DictionaryEngVie";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dictionary";
             ResumeLayout(false);
@@ -82,6 +80,6 @@
 
         private TextBox SearchBox;
         private Button SearchBtn;
-        private RichTextBox ResultBox;
+        private RichTextBox DisplayContent;
     }
 }

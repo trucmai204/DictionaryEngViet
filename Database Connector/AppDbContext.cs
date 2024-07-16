@@ -11,5 +11,10 @@ namespace Database_Connector
         {
             optionsBuilder.UseSqlServer("Trusted_Connection=true;TrustServerCertificate=True;Server=TRUCMAI\\SQLEXPRESS;Database=Dictionary");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Vocabulary>()
+                .HasKey(v => v.Id); // Định nghĩa Id là khóa chính
+        }
     }
 }

@@ -17,13 +17,13 @@ namespace BackendApi.Controllers
         [HttpGet("FindByWord")]
         public ActionResult<List<Vocabulary>> FindByWord(string keyword) // Kieu du lieu cua function nen dat trong ActionResult<>, vi du: ActionResult<List<Vocabulary>>
         {
-            return VocabularyScope.FindByWord(); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
+            return VocabularyScope.FindByWord(keyword); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
         }
 
         [HttpPost("Create")]
         public ActionResult Create([FromBody] Vocabulary vocabulary) 
         {
-            // Them 1 tu moi: VocabularyScope.Create(vocabulary);
+            VocabularyScope.Create(vocabulary.Word, vocabulary.WordTypeId, vocabulary.Pronounciation, vocabulary.Description);
             return Created(); // Thong bao da tao thanh cong
         }
 
@@ -37,7 +37,7 @@ namespace BackendApi.Controllers
         [HttpDelete("DeleteById")]
         public ActionResult DeleteById(int id)
         {
-            // Xoa tu theo ID: VocabularyScope.Delete(id);
+            VocabularyScope.Delete(id);
             return Ok(id); // Thong bao thanh cong
         }
 

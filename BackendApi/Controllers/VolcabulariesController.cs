@@ -24,7 +24,7 @@ namespace BackendApi.Controllers
         public ActionResult Create([FromBody] Vocabulary vocabulary) 
         {
             VocabularyScope.Create(vocabulary.Word, vocabulary.WordTypeId, vocabulary.Pronounciation, vocabulary.Description);
-            return Created(); // Thong bao da tao thanh cong
+            return CreatedAtAction(nameof(Create), new { id = vocabulary.Id }, vocabulary); // Thong bao da tao thanh cong
         }
 
         [HttpPost("CreateMany")]
@@ -37,14 +37,14 @@ namespace BackendApi.Controllers
         [HttpDelete("DeleteById")]
         public ActionResult DeleteById(int id)
         {
-            VocabularyScope.Delete(id);
+            VocabularyScope.DeleteById(id);
             return Ok(id); // Thong bao thanh cong
         }
 
         [HttpDelete("DeleteByKeyword")]
         public ActionResult DeleteByKeyword(string keyword)
         {
-            // Xoa tat ca nhung tu chua keyword: VocabularyScope.DeleteByKeyword(keyword);
+             VocabularyScope.DeleteByKeyword(keyword);
             return Ok(); // Thong bao thanh cong
         }
     }

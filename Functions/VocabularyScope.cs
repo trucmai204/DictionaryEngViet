@@ -24,7 +24,7 @@ namespace Functions
             Db.SaveChanges();
         }
 
-        public static void Delete(int id) 
+        public static void DeleteById(int id) 
         { 
             var wordType = Db.Vocabulary.FirstOrDefault(x => x.Id == id);
             if (wordType != null) 
@@ -32,6 +32,13 @@ namespace Functions
                 Db.Vocabulary.Remove(wordType);
                 Db.SaveChanges();
             }
+        }
+
+        public static void DeleteByKeyword(string word) 
+        { 
+            var name = Db.Vocabulary.FirstOrDefault(name => name.Word.Contains(word));
+            Db.Vocabulary.Remove(name);
+            Db.SaveChanges();
         }
     }
 }

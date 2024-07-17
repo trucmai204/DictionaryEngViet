@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
+
 namespace DictionaryEngViet
 {
     public partial class DictionaryEngVie : Form
@@ -19,16 +20,16 @@ namespace DictionaryEngViet
 
             var vocabularies = JsonConvert.DeserializeObject<List<Vocabulary>>(response);
             DisplayContent.Clear();
-            foreach(var vocabulary in vocabularies)
+            foreach (var vocabulary in vocabularies)
             {
                 DisplayContent.Text += $"{vocabulary.Word} \n {vocabulary.WordTypeId} \n {vocabulary.Pronounciation} \n {vocabulary.Description} \n";
             }
             //DisplayContent.Text = $" {vocabularies.FirstOrDefault().Word } \n {vocabularies.FirstOrDefault().WordTypeId} " +
             //    $"\n {vocabularies.FirstOrDefault().Pronounciation} \n {vocabularies.FirstOrDefault().Description}";
 
-            
+
         }
-         async Task<string> GetVocabularyByKeyword(string keyword)
+        async Task<string> GetVocabularyByKeyword(string keyword)
         {
             string url = $"https://localhost:7271/api/Volcabularies/FindByWord?keyword={keyword}";
 
@@ -49,5 +50,12 @@ namespace DictionaryEngViet
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AddnewWord form = new AddnewWord();
+            form.ShowDialog();
+
         }
+    }
 }

@@ -78,6 +78,7 @@
             // 
             AddWordTypeCb.BackColor = SystemColors.InactiveCaption;
             AddWordTypeCb.FormattingEnabled = true;
+            AddWordTypeCb.Items.AddRange(new object[] { "Noun", "Adjective", "Verb", "Adverb" });
             AddWordTypeCb.Location = new Point(345, 96);
             AddWordTypeCb.Name = "AddWordTypeCb";
             AddWordTypeCb.Size = new Size(151, 28);

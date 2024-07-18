@@ -22,29 +22,56 @@ namespace DictionaryEngViet
         }
 
         private async void button1_Click(object sender, EventArgs e)
-        {
+            {
+        //    EnumWordType wordType = EnumWordType.Verb; // Thay đổi giá trị wordType tùy theo nhu cầu
+
+        //    Vocabulary vocabulary = await GetVocabularyByWordType(wordType);
+        //    vocabulary.WordTypeId = (EnumWordType)AddWordTypeCb.SelectedIndex;
+
             Vocabulary newVocabulary = new Vocabulary
             {
                 Word = AddwordTxt.Text,
-                WordTypeId = (EnumWordType)AddWordTypeCb.SelectedIndex,
+                WordTypeId = (EnumWordType)(++AddWordTypeCb.SelectedIndex), 
                 Pronounciation = AddPronouTxt.Text,
                 Description = DescriptWordRtb.Text
             };
 
-            bool response = await CreateVocabulary(newVocabulary);
-            if (response)
+            bool response1 = await CreateVocabulary(newVocabulary);
+            if (response1)
             {
-                Console.WriteLine("Từ vựng đã được tạo thành công.");
+                MessageBox.Show("Từ vựng đã được tạo thành công.");
             }
-            else
-            {
-                Console.WriteLine("Đã có lỗi xảy ra khi tạo từ vựng.");
-            }
+            //else
+            //{
+            //    MessageBox.Show("Đã có lỗi xảy ra khi tạo từ vựng.");
+            //}
             this.Close();
         }
 
+        //async Task<Vocabulary> GetVocabularyByWordType(EnumWordType wordType)
+        //{
+        //    string apiUrl = $"https://localhost:7271/api/Volcabularies/GetWordTypeOf?wordType={(int)wordType}";
 
-        async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Accept.Clear();
+        //        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            string jsonContent = await response.Content.ReadAsStringAsync();
+        //            return JsonConvert.DeserializeObject<Vocabulary>(jsonContent);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine($"Lỗi khi gọi API: {response.StatusCode}");
+        //            return null;
+        //        }
+        //    }
+        //}
+            async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
         {
             string url = "https://localhost:7271/api/Volcabularies/Create";
 
@@ -60,13 +87,13 @@ namespace DictionaryEngViet
                     }
                     else
                     {
-                        Console.WriteLine($"Lỗi khi gọi API: {response.StatusCode}");
+                        MessageBox.Show($"Lỗi khi gọi API: {response.StatusCode}");
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Lỗi khi gọi API: {ex.Message}");
+                    MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
                     return false;
                 }
             }

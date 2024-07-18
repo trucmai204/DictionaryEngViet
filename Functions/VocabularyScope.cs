@@ -13,17 +13,30 @@ namespace Functions
 
         public static void Create(string word, EnumWordType wordtypeId, string pronouciation, string description)
         {
-            var newWord = new Vocabulary
+            var isExist = Db.Vocabulary.Any(v => v.Word.Equals(word));
+            if (!isExist)
             {
-                Word = word,
-                WordTypeId = wordtypeId,
-                Pronounciation = pronouciation,
-                Description = description
-            };
-            Db.Vocabulary.Add(newWord);
-            Db.SaveChanges();
+                var newWord = new Vocabulary
+                {
+                    Word = word,
+                    WordTypeId = wordtypeId,
+                    Pronounciation = pronouciation,
+                    Description = description
+                };
+                Db.Vocabulary.Add(newWord);
+                Db.SaveChanges();
+            }
+            else 
+            {
+                throw new Exception("Từ đã tồn tại");
+            }
         }
 
+        public static List<EnumWordType> GetWordTypeOf(EnumWordType wordType) 
+        { 
+            return Db.Vocabulary.Select(type => type.WordTypeId).Distinct().ToList();
+
+        }
         public static void DeleteById(int id) 
         { 
             var wordType = Db.Vocabulary.FirstOrDefault(x => x.Id == id);

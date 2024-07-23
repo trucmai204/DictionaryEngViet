@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Azure;
+using Entities;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
@@ -12,6 +13,7 @@ namespace DictionaryEngViet
         {
             InitializeComponent();
         }
+       
 
         private async void SearchBtn_Click(object sender, EventArgs e)
         {
@@ -19,10 +21,10 @@ namespace DictionaryEngViet
             var response = await GetVocabularyByKeyword(keyword);
 
             var vocabularies = JsonConvert.DeserializeObject<List<Vocabulary>>(response);
-            DisplayContent.Clear();
+
             foreach (var vocabulary in vocabularies)
             {
-                DisplayContent.Text += $"{vocabulary.Word} \n {vocabulary.WordTypeId} \n {vocabulary.Pronounciation} \n {vocabulary.Description} \n";
+                dataGridView1.Text += $"{vocabulary.Word} \n {vocabulary.WordTypeId} \n {vocabulary.Pronounciation} \n {vocabulary.Description} \n";
             }
             //DisplayContent.Text = $" {vocabularies.FirstOrDefault().Word } \n {vocabularies.FirstOrDefault().WordTypeId} " +
             //    $"\n {vocabularies.FirstOrDefault().Pronounciation} \n {vocabularies.FirstOrDefault().Description}";
@@ -50,12 +52,20 @@ namespace DictionaryEngViet
                 }
             }
         }
-
+       
         private void button1_Click(object sender, EventArgs e)
         {
             AddnewWord form = new AddnewWord();
             form.ShowDialog();
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UpdateWord form = new UpdateWord();
+            form.ShowDialog();
+        }
+
+        
     }
 }

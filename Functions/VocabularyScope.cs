@@ -6,6 +6,7 @@ namespace Functions
     public static class VocabularyScope
     {
         private static AppDbContext Db = new AppDbContext();
+     
         public static List<Vocabulary> FindByWord(string keyword)
         {
             return Db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList();
@@ -36,6 +37,20 @@ namespace Functions
         { 
             return Db.Vocabulary.Select(type => type.WordTypeId).Distinct().ToList();
 
+        }
+        public static void Upgrade(int id, string word, EnumWordType wordtypeId, string pronouciation, string description) 
+        {
+            var wordChange = Db.Vocabulary.FirstOrDefault(name => name.Id == id);
+            if (wordChange != null) 
+            {
+                wordChange.Word = word;
+                wordChange.WordTypeId = wordtypeId;
+                wordChange.Description = description;
+                wordChange.Pronounciation = pronouciation;
+
+                Db.Vocabulary.Update(wordChange);
+                Db.SaveChanges();
+            }
         }
         public static void DeleteById(int id) 
         { 

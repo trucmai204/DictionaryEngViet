@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Functions;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BackendApi.Controllers
 {
@@ -41,6 +42,19 @@ namespace BackendApi.Controllers
             }
         }
 
+        [HttpPost("Upgrade {id}")]
+        public ActionResult Upgrade(int id, [FromBody] Vocabulary vocabulary)
+        {
+            try
+            {
+                VocabularyScope.Upgrade(id, vocabulary.Word, vocabulary.WordTypeId, vocabulary.Pronounciation, vocabulary.Description);
+                return Ok(vocabulary);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CreateMany")]
         public ActionResult CreateMany([FromBody] List<Vocabulary> vocabularies)
         {

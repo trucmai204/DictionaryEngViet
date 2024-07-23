@@ -31,7 +31,7 @@ namespace DictionaryEngViet
             Vocabulary newVocabulary = new Vocabulary
             {
                 Word = AddwordTxt.Text,
-                WordTypeId = (EnumWordType)(++AddWordTypeCb.SelectedIndex), 
+                WordTypeId = (EnumWordType)(AddWordTypeCb.SelectedIndex+1), 
                 Pronounciation = AddPronouTxt.Text,
                 Description = DescriptWordRtb.Text
             };

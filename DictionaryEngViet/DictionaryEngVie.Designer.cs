@@ -30,8 +30,15 @@
         {
             SearchBox = new TextBox();
             SearchBtn = new Button();
-            DisplayContent = new RichTextBox();
             button1 = new Button();
+            button2 = new Button();
+            dataGridView1 = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            Word = new DataGridViewTextBoxColumn();
+            WordTypeId = new DataGridViewTextBoxColumn();
+            Pronounciation = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // SearchBox
@@ -57,16 +64,6 @@
             SearchBtn.UseVisualStyleBackColor = false;
             SearchBtn.Click += SearchBtn_Click;
             // 
-            // DisplayContent
-            // 
-            DisplayContent.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            DisplayContent.BackColor = Color.LightBlue;
-            DisplayContent.Location = new Point(26, 84);
-            DisplayContent.Name = "DisplayContent";
-            DisplayContent.Size = new Size(506, 354);
-            DisplayContent.TabIndex = 2;
-            DisplayContent.Text = "";
-            // 
             // button1
             // 
             button1.Location = new Point(591, 156);
@@ -77,19 +74,86 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(593, 207);
+            button2.Name = "button2";
+            button2.Size = new Size(124, 29);
+            button2.TabIndex = 4;
+            button2.Text = "Sửa đổi từ";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Id, Word, WordTypeId, Pronounciation, Description });
+            dataGridView1.Location = new Point(19, 103);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(531, 321);
+            dataGridView1.TabIndex = 5;
+            // 
+            // Id
+            // 
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.MinimumWidth = 6;
+            Id.Name = "Id";
+            Id.Width = 51;
+            // 
+            // Word
+            // 
+            Word.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Word.DataPropertyName = "Word";
+            Word.HeaderText = "Word";
+            Word.MinimumWidth = 6;
+            Word.Name = "Word";
+            Word.Width = 74;
+            // 
+            // WordTypeId
+            // 
+            WordTypeId.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            WordTypeId.DataPropertyName = "WordTypeId";
+            WordTypeId.HeaderText = "WordTypeId";
+            WordTypeId.MinimumWidth = 6;
+            WordTypeId.Name = "WordTypeId";
+            WordTypeId.Width = 118;
+            // 
+            // Pronounciation
+            // 
+            Pronounciation.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Pronounciation.DataPropertyName = "Pronounciation";
+            Pronounciation.HeaderText = "Pronounciation";
+            Pronounciation.MinimumWidth = 6;
+            Pronounciation.Name = "Pronounciation";
+            Pronounciation.Width = 138;
+            // 
+            // Description
+            // 
+            Description.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Description.DataPropertyName = "Description";
+            Description.HeaderText = "Description";
+            Description.MinimumWidth = 6;
+            Description.Name = "Description";
+            Description.Width = 114;
+            // 
             // DictionaryEngVie
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSteelBlue;
             ClientSize = new Size(758, 450);
+            Controls.Add(dataGridView1);
+            Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(DisplayContent);
             Controls.Add(SearchBtn);
             Controls.Add(SearchBox);
             Name = "DictionaryEngVie";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dictionary";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -98,7 +162,13 @@
 
         private TextBox SearchBox;
         private Button SearchBtn;
-        private RichTextBox DisplayContent;
         private Button button1;
+        private Button button2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn Word;
+        private DataGridViewTextBoxColumn WordTypeId;
+        private DataGridViewTextBoxColumn Pronounciation;
+        private DataGridViewTextBoxColumn Description;
     }
 }

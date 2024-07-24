@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Database_Connector;
+using Entities;
 using Functions;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -14,11 +15,15 @@ namespace BackendApi.Controllers
         //{
         //    return VocabularyScope.FindByWord(); 
         //}
-
+        private AppDbContext _db;
+        public VolcabulariesController(AppDbContext db) 
+        { 
+            _db = db;
+        }
         [HttpGet("FindByWord")]
         public ActionResult<List<Vocabulary>> FindByWord(string keyword) // Kieu du lieu cua function nen dat trong ActionResult<>, vi du: ActionResult<List<Vocabulary>>
         {
-            return VocabularyScope.FindByWord(keyword); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
+            return _db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList(); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
         }
 
         //[HttpGet("GetWordTypeOf")]

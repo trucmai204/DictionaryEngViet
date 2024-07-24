@@ -45,7 +45,7 @@
             // 
             SearchBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchBox.BackColor = SystemColors.InactiveCaption;
-            SearchBox.Location = new Point(26, 35);
+            SearchBox.Location = new Point(26, 36);
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(403, 27);
             SearchBox.TabIndex = 0;
@@ -56,7 +56,7 @@
             SearchBtn.BackColor = Color.SteelBlue;
             SearchBtn.Font = new Font("Times New Roman", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SearchBtn.ForeColor = SystemColors.Desktop;
-            SearchBtn.Location = new Point(445, 34);
+            SearchBtn.Location = new Point(470, 35);
             SearchBtn.Name = "SearchBtn";
             SearchBtn.Size = new Size(87, 29);
             SearchBtn.TabIndex = 1;
@@ -88,7 +88,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Id, Word, WordTypeId, Pronounciation, Description });
-            dataGridView1.Location = new Point(19, 103);
+            dataGridView1.Location = new Point(26, 117);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(531, 321);

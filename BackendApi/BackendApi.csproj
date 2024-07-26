@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Database Connector\Database Connector.csproj" />
     <ProjectReference Include="..\Functions\Functions.csproj" />
   </ItemGroup>
 

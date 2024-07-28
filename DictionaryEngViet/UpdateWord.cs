@@ -17,7 +17,7 @@ namespace DictionaryEngViet
     public partial class UpdateWord : Form
     {
         private int id;
-        public UpdateWord()
+        public UpdateWord(int id)
         {
             InitializeComponent();
             this.id = id;

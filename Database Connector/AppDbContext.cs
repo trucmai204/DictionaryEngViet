@@ -7,9 +7,7 @@ namespace Database_Connector
     {
         public DbSet<Vocabulary> Vocabulary { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Trusted_Connection=true;TrustServerCertificate=True;Server=TRUCMAI\\SQLEXPRESS;Database=Dictionary");
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

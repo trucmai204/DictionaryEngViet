@@ -5,16 +5,16 @@ namespace Functions
 {
     public static class VocabularyScope
     {
-        private static AppDbContext Db = new AppDbContext();
-     
+        private static AppDbContext _db = new AppDbContext(null);
+
         public static List<Vocabulary> FindByWord(string keyword)
         {
-            return Db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList();
+            return _db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList();
         }
 
         public static void Create(string word, EnumWordType wordtypeId, string pronouciation, string description)
         {
-            var isExist = Db.Vocabulary.Any(v => v.Word.Equals(word));
+            var isExist = _db.Vocabulary.Any(v => v.Word.Equals(word));
             if (!isExist)
             {
                 var newWord = new Vocabulary
@@ -24,49 +24,49 @@ namespace Functions
                     Pronounciation = pronouciation,
                     Description = description
                 };
-                Db.Vocabulary.Add(newWord);
-                Db.SaveChanges();
+                _db.Vocabulary.Add(newWord);
+                _db.SaveChanges();
             }
-            else 
+            else
             {
                 throw new Exception("Từ đã tồn tại");
             }
         }
 
-        public static List<EnumWordType> GetWordTypeOf(EnumWordType wordType) 
-        { 
-            return Db.Vocabulary.Select(type => type.WordTypeId).Distinct().ToList();
+        public static List<EnumWordType> GetWordTypeOf(EnumWordType wordType)
+        {
+            return _db.Vocabulary.Select(type => type.WordTypeId).Distinct().ToList();
 
         }
-        public static void Upgrade(int id, string word, EnumWordType wordtypeId, string pronouciation, string description) 
+        public static void Upgrade(int id, string word, EnumWordType wordtypeId, string pronouciation, string description)
         {
-            var wordChange = Db.Vocabulary.FirstOrDefault(name => name.Id == id);
-            if (wordChange != null) 
+            var wordChange = _db.Vocabulary.FirstOrDefault(name => name.Id == id);
+            if (wordChange != null)
             {
                 wordChange.Word = word;
                 wordChange.WordTypeId = wordtypeId;
                 wordChange.Description = description;
                 wordChange.Pronounciation = pronouciation;
 
-                Db.Vocabulary.Update(wordChange);
-                Db.SaveChanges();
+                _db.Vocabulary.Update(wordChange);
+                _db.SaveChanges();
             }
         }
-        public static void DeleteById(int id) 
-        { 
-            var wordType = Db.Vocabulary.FirstOrDefault(x => x.Id == id);
-            if (wordType != null) 
-            { 
-                Db.Vocabulary.Remove(wordType);
-                Db.SaveChanges();
+        public static void DeleteById(int id)
+        {
+            var wordType = _db.Vocabulary.FirstOrDefault(x => x.Id == id);
+            if (wordType != null)
+            {
+                _db.Vocabulary.Remove(wordType);
+                _db.SaveChanges();
             }
         }
 
-        public static void DeleteByKeyword(string word) 
-        { 
-            var name = Db.Vocabulary.FirstOrDefault(name => name.Word.Contains(word));
-            Db.Vocabulary.Remove(name);
-            Db.SaveChanges();
+        public static void DeleteByKeyword(string word)
+        {
+            var name = _db.Vocabulary.FirstOrDefault(name => name.Word.Contains(word));
+            _db.Vocabulary.Remove(name);
+            _db.SaveChanges();
         }
     }
 }

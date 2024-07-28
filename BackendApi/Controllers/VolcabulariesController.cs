@@ -38,8 +38,25 @@ namespace BackendApi.Controllers
         {
             try
             {
-                VocabularyScope.Create(vocabulary.Word, vocabulary.WordTypeId, vocabulary.Pronounciation, vocabulary.Description);
-                return Created(); // Thong bao da tao thanh cong
+                var isExist = _db.Vocabulary.Any(v => v.Word.Equals(vocabulary.Word));
+                if (!isExist)
+                {
+                    var newWord = new Vocabulary
+                    {
+                        Word = vocabulary.Word,
+                        WordTypeId = vocabulary.WordTypeId,
+                        Pronounciation = vocabulary.Pronounciation,
+                        Description = vocabulary.Description
+                    };
+                    _db.Vocabulary.Add(newWord);
+                    _db.SaveChanges();
+                    return Created("tạo thành công",newWord); // Thong bao da tao thanh cong
+                }
+                else
+                {
+                    return BadRequest("Đã tồn tại");
+                }
+                
             }
             catch (Exception ex) 
             {
@@ -47,13 +64,26 @@ namespace BackendApi.Controllers
             }
         }
 
-        [HttpPost("Upgrade {id}")]
-        public ActionResult Upgrade(int id, [FromBody] Vocabulary vocabulary)
+        [HttpPost("Update")]
+        public ActionResult Update(int id, [FromBody] Vocabulary vocabulary)
         {
             try
             {
-                VocabularyScope.Upgrade(id, vocabulary.Word, vocabulary.WordTypeId, vocabulary.Pronounciation, vocabulary.Description);
-                return Ok(vocabulary);
+                var wordChange = _db.Vocabulary.FirstOrDefault(name => name.Id == id);
+                if (wordChange != null)
+                {
+                    wordChange = vocabulary;
+
+                    _db.Vocabulary.Update(wordChange);
+                    _db.SaveChanges();
+
+                    return Ok(vocabulary);
+                }
+                else
+                {
+                    return BadRequest("Không tồn tại");
+                }
+
             }
             catch (Exception ex)
             {

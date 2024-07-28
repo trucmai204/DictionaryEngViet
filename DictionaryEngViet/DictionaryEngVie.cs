@@ -22,10 +22,11 @@ namespace DictionaryEngViet
 
             var vocabularies = JsonConvert.DeserializeObject<List<Vocabulary>>(response);
 
-            foreach (var vocabulary in vocabularies)
-            {
-                dataGridView1.Text += $"{vocabulary.Word} \n {vocabulary.WordTypeId} \n {vocabulary.Pronounciation} \n {vocabulary.Description} \n";
-            }
+            //foreach (var vocabulary in vocabularies)
+            //{
+            //    dataGridView1.Text += $"{vocabulary.Word} \n {vocabulary.WordTypeId} \n {vocabulary.Pronounciation} \n {vocabulary.Description} \n";
+            //}
+            dataGridView1.DataSource = vocabularies;
             //DisplayContent.Text = $" {vocabularies.FirstOrDefault().Word } \n {vocabularies.FirstOrDefault().WordTypeId} " +
             //    $"\n {vocabularies.FirstOrDefault().Pronounciation} \n {vocabularies.FirstOrDefault().Description}";
 
@@ -62,8 +63,9 @@ namespace DictionaryEngViet
 
         private void button2_Click(object sender, EventArgs e)
         {
-            UpdateWord form = new UpdateWord();
-            form.ShowDialog();
+                UpdateWord form = new UpdateWord(1);
+                form.ShowDialog();
+            
         }
 
         

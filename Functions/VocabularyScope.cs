@@ -52,15 +52,15 @@ namespace Functions
                 _db.SaveChanges();
             }
         }
-        public static void DeleteById(int id)
-        {
-            var wordType = _db.Vocabulary.FirstOrDefault(x => x.Id == id);
-            if (wordType != null)
-            {
-                _db.Vocabulary.Remove(wordType);
-                _db.SaveChanges();
-            }
-        }
+        //public static void DeleteById(int id)
+        //{
+        //    var wordType = _db.Vocabulary.FirstOrDefault(x => x.Id == id);
+        //    if (wordType != null)
+        //    {
+        //        _db.Vocabulary.Remove(wordType);
+        //        _db.SaveChanges();
+        //    }
+        //}
 
         public static void DeleteByKeyword(string word)
         {

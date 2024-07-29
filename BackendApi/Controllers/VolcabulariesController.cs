@@ -1,6 +1,7 @@
 ﻿using Database_Connector;
 using Entities;
 using Functions;
+using Humanizer.Inflections;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -10,38 +11,28 @@ namespace BackendApi.Controllers
     [ApiController]
     public class VolcabulariesController : ControllerBase
     {
-        //[HttpGet("FindByWord")]
-        //public static List<Vocabulary> FindByWord() 
-        //{
-        //    return VocabularyScope.FindByWord(); 
-        //}
+        
         private AppDbContext _db;
         public VolcabulariesController(AppDbContext db) 
         { 
             _db = db;
         }
+
         [HttpGet("FindByWord")]
-        public ActionResult<List<Vocabulary>> FindByWord(string keyword) // Kieu du lieu cua function nen dat trong ActionResult<>, vi du: ActionResult<List<Vocabulary>>
+        public ActionResult<List<Entities.Vocabulary>> FindByWord(string keyword) // Kieu du lieu cua function nen dat trong ActionResult<>, vi du: ActionResult<List<Vocabulary>>
         {
             return _db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList(); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
         }
 
-        //[HttpGet("GetWordTypeOf")]
-        //public ActionResult<List<EnumWordType>> GetWordTypeOf(EnumWordType wordType) // Kieu du lieu cua function nen dat trong ActionResult<>, vi du: ActionResult<List<Vocabulary>>
-        //{
-        //    VocabularyScope.GetWordTypeOf(wordType); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
-        //    return Ok(wordType);
-        //}
-
         [HttpPost("Create")]
-        public ActionResult Create([FromBody] Vocabulary vocabulary) 
+        public ActionResult Create(Entities.Vocabulary vocabulary)
         {
             try
             {
                 var isExist = _db.Vocabulary.Any(v => v.Word.Equals(vocabulary.Word));
                 if (!isExist)
                 {
-                    var newWord = new Vocabulary
+                    var newWord = new Entities.Vocabulary
                     {
                         Word = vocabulary.Word,
                         WordTypeId = vocabulary.WordTypeId,
@@ -50,11 +41,11 @@ namespace BackendApi.Controllers
                     };
                     _db.Vocabulary.Add(newWord);
                     _db.SaveChanges();
-                    return Created("tạo thành công",newWord); // Thong bao da tao thanh cong
+                    return Created("Successful",newWord); // Thong bao da tao thanh cong
                 }
                 else
                 {
-                    return BadRequest("Đã tồn tại");
+                    return BadRequest("Request cannot be fulfilled");
                 }
                 
             }
@@ -65,7 +56,7 @@ namespace BackendApi.Controllers
         }
 
         [HttpPost("Update")]
-        public ActionResult Update(int id, [FromBody] Vocabulary vocabulary)
+        public ActionResult Update(int id, [FromBody] Entities.Vocabulary vocabulary)
         {
             try
             {
@@ -81,7 +72,7 @@ namespace BackendApi.Controllers
                 }
                 else
                 {
-                    return BadRequest("Không tồn tại");
+                    return BadRequest("Request cannot be fulfilled");
                 }
 
             }
@@ -90,25 +81,85 @@ namespace BackendApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("CreateMany")]
-        public ActionResult CreateMany([FromBody] List<Vocabulary> vocabularies)
+        public async Task<ActionResult> CreateMany([FromBody] Entities.Vocabulary vocabularies)
         {
-            // Them nhieu tu moi: VocabularyScope.CreateMany(vocabularies);
-            return Created(); // Thong bao da tao thanh cong
+            try
+            {
+                var isExist = _db.Vocabulary.Any(v => v.Word.Equals(vocabularies));
+                if (!isExist)
+                {
+                    var newWord = new Entities.Vocabulary
+                    {
+                        Word = vocabularies.Word,
+                        WordTypeId = vocabularies.WordTypeId,
+                        Pronounciation = vocabularies.Pronounciation,
+                        Description = vocabularies.Description
+                    };
+                    _db.Vocabulary.AddRange(newWord);
+                    _db.SaveChanges();
+                    return Created("Successful", newWord); // Thong bao da tao thanh cong
+                }
+                else
+                {
+                    return BadRequest("Request cannot be fulfilled");
+                }
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteById")]
         public ActionResult DeleteById(int id)
         {
-            VocabularyScope.DeleteById(id);
-            return Ok(id); // Thong bao thanh cong
+            try
+            {
+                var wordType = _db.Vocabulary.FirstOrDefault(x => x.Id == id);
+                if (wordType != null)
+                {
+                    _db.Vocabulary.Remove(wordType);
+                    _db.SaveChanges();
+                    
+                    return Ok(id); // Thong bao thanh cong
+                }
+                else
+                {
+                    return BadRequest("Request cannot be fulfilled");
+                }
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         [HttpDelete("DeleteByKeyword")]
         public ActionResult DeleteByKeyword(string keyword)
         {
-             VocabularyScope.DeleteByKeyword(keyword);
-            return Ok(); // Thong bao thanh cong
+            try
+            {
+                var name = _db.Vocabulary.FirstOrDefault(name => name.Word.Contains(keyword));
+               
+                if (name != null)
+                {
+                    _db.Vocabulary.Remove(name);
+                    _db.SaveChanges();
+
+                    return Ok(keyword); // Thong bao thanh cong
+                }
+                else
+                {
+                    return BadRequest("Request cannot be fulfilled");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

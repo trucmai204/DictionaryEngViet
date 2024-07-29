@@ -22,16 +22,16 @@ namespace DictionaryEngViet
         }
 
         private async void button1_Click(object sender, EventArgs e)
-            {
-        //    EnumWordType wordType = EnumWordType.Verb; // Thay đổi giá trị wordType tùy theo nhu cầu
+        {
+            //    EnumWordType wordType = EnumWordType.Verb; // Thay đổi giá trị wordType tùy theo nhu cầu
 
-        //    Vocabulary vocabulary = await GetVocabularyByWordType(wordType);
-        //    vocabulary.WordTypeId = (EnumWordType)AddWordTypeCb.SelectedIndex;
+            //    Vocabulary vocabulary = await GetVocabularyByWordType(wordType);
+            //    vocabulary.WordTypeId = (EnumWordType)AddWordTypeCb.SelectedIndex;
 
             Vocabulary newVocabulary = new Vocabulary
             {
                 Word = AddwordTxt.Text,
-                WordTypeId = (EnumWordType)(AddWordTypeCb.SelectedIndex+1), 
+                WordTypeId = (EnumWordType)(AddWordTypeCb.SelectedIndex + 1),
                 Pronounciation = AddPronouTxt.Text,
                 Description = DescriptWordRtb.Text
             };
@@ -71,7 +71,7 @@ namespace DictionaryEngViet
         //        }
         //    }
         //}
-            async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
+        async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
         {
             string url = "https://localhost:7271/api/Volcabularies/Create";
 
@@ -97,6 +97,11 @@ namespace DictionaryEngViet
                     return false;
                 }
             }
+        }
+
+        private void AddnewWord_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

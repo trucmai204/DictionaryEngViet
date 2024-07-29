@@ -1,6 +1,5 @@
 ﻿using Database_Connector;
 using Entities;
-using Functions;
 using Humanizer.Inflections;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -24,6 +23,27 @@ namespace BackendApi.Controllers
             return _db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList(); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
         }
 
+        [HttpGet("GetWord")]
+        public ActionResult<List<Entities.Vocabulary>> GetWord(string word)
+        {
+            try
+            {
+                var name = _db.Vocabulary.Select(x => x.Word == word).ToList();
+                if (!name.Any())
+                {
+                    return Ok(word);
+                }
+                else 
+                {
+                    return BadRequest("Not Successful");
+                }
+                
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("Create")]
         public ActionResult Create(Entities.Vocabulary vocabulary)
         {

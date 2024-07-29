@@ -45,7 +45,7 @@
             AddWordBtn.BackColor = Color.CornflowerBlue;
             AddWordBtn.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AddWordBtn.ForeColor = SystemColors.Desktop;
-            AddWordBtn.Location = new Point(448, 299);
+            AddWordBtn.Location = new Point(448, 234);
             AddWordBtn.Name = "AddWordBtn";
             AddWordBtn.Size = new Size(137, 33);
             AddWordBtn.TabIndex = 0;
@@ -66,7 +66,7 @@
             DescriptWordRtb.BackColor = SystemColors.InactiveCaption;
             DescriptWordRtb.Location = new Point(139, 147);
             DescriptWordRtb.Name = "DescriptWordRtb";
-            DescriptWordRtb.Size = new Size(446, 120);
+            DescriptWordRtb.Size = new Size(250, 120);
             DescriptWordRtb.TabIndex = 2;
             DescriptWordRtb.Text = "";
             // 
@@ -129,7 +129,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(652, 356);
+            ClientSize = new Size(660, 306);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -141,6 +141,7 @@
             Controls.Add(AddWordBtn);
             Name = "AddnewWord";
             Text = "AddnewWord";
+            Load += AddnewWord_Load;
             ResumeLayout(false);
             PerformLayout();
         }

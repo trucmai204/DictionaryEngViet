@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BackendApi\BackendApi.csproj" />
-    <ProjectReference Include="..\Functions\Functions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

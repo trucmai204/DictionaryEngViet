@@ -25,10 +25,11 @@ namespace DictionaryEngViet
 
         private async void AddWordBtn_Click(object sender, EventArgs e)
         {
+            
             Vocabulary newVocabulary = new Vocabulary
             {
                 
-                Word = AddwordTxt.Text,
+                Word = comboBox1.Text,
                 WordTypeId = (EnumWordType)(AddWordTypeCb.SelectedIndex + 1),
                 Pronounciation = AddPronouTxt.Text,
                 Description = DescriptWordRtb.Text

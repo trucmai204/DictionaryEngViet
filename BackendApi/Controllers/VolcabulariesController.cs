@@ -28,8 +28,8 @@ namespace BackendApi.Controllers
         {
             try
             {
-                var name = _db.Vocabulary.Select(x => x.Word == word).ToList();
-                if (!name.Any())
+                var exists = _db.Vocabulary.Any(x => x.Word == word);
+                if (exists)
                 {
                     return Ok(word);
                 }

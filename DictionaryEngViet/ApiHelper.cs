@@ -49,6 +49,25 @@ namespace DictionaryEngViet
                 throw;
             }
         }
-           
+        public static async Task<List<Root>> GetWord(string name)
+        {
+            _httpClient.BaseAddress = new Uri(_endpoint);
+
+            try
+            {
+                // Thực hiện yêu cầu GET
+                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Volcabularies/GetWord?word={name}");
+
+                response.EnsureSuccessStatusCode();
+                string content = await response.Content.ReadAsStringAsync();
+                List<Root> result = JsonConvert.DeserializeObject<List<Root>>(content);
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }

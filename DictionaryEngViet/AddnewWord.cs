@@ -48,29 +48,7 @@ namespace DictionaryEngViet
             this.Close();
         }
 
-        //async Task<Vocabulary> GetVocabularyByWordType(EnumWordType wordType)
-        //{
-        //    string apiUrl = $"https://localhost:7271/api/Volcabularies/GetWordTypeOf?wordType={(int)wordType}";
-
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        client.DefaultRequestHeaders.Accept.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            string jsonContent = await response.Content.ReadAsStringAsync();
-        //            return JsonConvert.DeserializeObject<Vocabulary>(jsonContent);
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine($"Lỗi khi gọi API: {response.StatusCode}");
-        //            return null;
-        //        }
-        //    }
-        //}
+        
         async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
         {
             string url = "https://localhost:7271/api/Volcabularies/Create";

@@ -1,10 +1,14 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+
 
 namespace DictionaryEngViet
 {
@@ -68,6 +72,29 @@ namespace DictionaryEngViet
                 throw;
             }
         }
+        public static async Task<Root> CreateNewWord(Root vocabulary)
+        {
+            _httpClient.BaseAddress = new Uri(_endpoint);
 
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await _httpClient.PostAsJsonAsync("/api/Vocabularies/Create", vocabulary);
+                    response.EnsureSuccessStatusCode();
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Root> result = JsonSerializer.Deserialize<List<Root>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
+                    return null;
+                }
+            }
+        }
     }
 }

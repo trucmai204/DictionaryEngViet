@@ -23,60 +23,21 @@ namespace DictionaryEngViet
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            //    EnumWordType wordType = EnumWordType.Verb; // Thay đổi giá trị wordType tùy theo nhu cầu
-
-            //    Vocabulary vocabulary = await GetVocabularyByWordType(wordType);
-            //    vocabulary.WordTypeId = (EnumWordType)AddWordTypeCb.SelectedIndex;
-
-            Vocabulary newVocabulary = new Vocabulary
+            
+            Root newVocabulary = new Root
             {
                 Word = AddwordTxt.Text,
-                WordTypeId = (EnumWordType)(AddWordTypeCb.SelectedIndex + 1),
+                WordTypeId = (AddWordTypeCb.SelectedIndex + 1),
                 Pronounciation = AddPronouTxt.Text,
                 Description = DescriptWordRtb.Text
             };
 
-            bool response1 = await CreateVocabulary(newVocabulary);
-            if (response1)
-            {
-                MessageBox.Show("Từ vựng đã được tạo thành công.");
-            }
-            //else
-            //{
-            //    MessageBox.Show("Đã có lỗi xảy ra khi tạo từ vựng.");
-            //}
+            await ApiHelper.CreateNewWord(newVocabulary);
+            
             this.Close();
         }
 
-        
-        async Task<bool> CreateVocabulary(Vocabulary newVocabulary)
-        {
-            string url = "https://localhost:7271/api/Volcabularies/Create";
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.PostAsJsonAsync(url, newVocabulary);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Lỗi khi gọi API: {response.StatusCode}");
-                        return false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
-                    return false;
-                }
-            }
-        }
-
+     
         private void AddnewWord_Load(object sender, EventArgs e)
         {
 

@@ -32,16 +32,15 @@ namespace DictionaryEngViet
     public static class ApiHelper
     {
         private static readonly string _endpoint = "https://localhost:7271";
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static HttpClient _httpClient = new HttpClient();
 
         public static async Task<List<Root>> FindByName(string name)
         {
-            _httpClient.BaseAddress = new Uri(_endpoint);
-
+            
             try
             {
                 // Thực hiện yêu cầu GET
-                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Volcabularies/FindByWord?keyword={name}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_endpoint}/api/Volcabularies/FindByWord?keyword={name}");
 
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
@@ -72,29 +71,21 @@ namespace DictionaryEngViet
                 throw;
             }
         }
-        public static async Task<Root> CreateNewWord(Root vocabulary)
+        public static async Task CreateNewWord(Root vocabulary)
         {
-            _httpClient.BaseAddress = new Uri(_endpoint);
-
-
-            using (HttpClient client = new HttpClient())
+            var requestBody = JsonConvert.SerializeObject(vocabulary);
+            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+            try
             {
-                try
-                {
-                    HttpResponseMessage response = await _httpClient.PostAsJsonAsync("/api/Vocabularies/Create", vocabulary);
-                    response.EnsureSuccessStatusCode();
+                var response = await _httpClient.PostAsync($"{_endpoint}/api/Vocabularies/Create", content);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
 
-                    string content = await response.Content.ReadAsStringAsync();
-                    List<Root> result = JsonSerializer.Deserialize<List<Root>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
-                    return null;
-                }
             }
         }
+        
     }
 }

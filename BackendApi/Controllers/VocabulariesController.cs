@@ -8,11 +8,11 @@ namespace BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VolcabulariesController : ControllerBase
+    public class VocabulariesController : ControllerBase
     {
         
         private AppDbContext _db;
-        public VolcabulariesController(AppDbContext db) 
+        public VocabulariesController(AppDbContext db) 
         { 
             _db = db;
         }
@@ -24,18 +24,18 @@ namespace BackendApi.Controllers
         }
 
         [HttpGet("GetWord")]
-        public ActionResult<List<Entities.Vocabulary>> GetWord(string word)
+        public ActionResult<Entities.Vocabulary> FindById(int id)
         {
             try
             {
-                var exists = _db.Vocabulary.Any(x => x.Word == word);
-                if (exists)
+                var exists = _db.Vocabulary.FirstOrDefault(x => x.Id == id);
+                if (exists != null)
                 {
-                    return Ok(word);
+                    return Ok(exists);
                 }
                 else 
                 {
-                    return BadRequest("Not Successful");
+                    return NotFound();
                 }
                 
             }
@@ -83,12 +83,15 @@ namespace BackendApi.Controllers
                 var wordChange = _db.Vocabulary.FirstOrDefault(name => name.Id == id);
                 if (wordChange != null)
                 {
-                    wordChange = vocabulary;
+                    wordChange.Word = vocabulary.Word;
+                    wordChange.WordTypeId = vocabulary.WordTypeId;
+                    wordChange.Pronounciation = vocabulary.Pronounciation;
+                    wordChange.Description = vocabulary.Description;
 
                     _db.Vocabulary.Update(wordChange);
                     _db.SaveChanges();
 
-                    return Ok(vocabulary);
+                    return Ok(wordChange);
                 }
                 else
                 {

@@ -142,6 +142,7 @@
             Controls.Add(AddWordBtn);
             Name = "UpdateWord";
             Text = "UpdateWord";
+            Load += UpdateWord_Load;
             ResumeLayout(false);
             PerformLayout();
         }

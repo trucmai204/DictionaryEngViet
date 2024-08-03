@@ -40,7 +40,7 @@ namespace DictionaryEngViet
             try
             {
                 // Thực hiện yêu cầu GET
-                HttpResponseMessage response = await _httpClient.GetAsync($"{_endpoint}/api/Volcabularies/FindByWord?keyword={name}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_endpoint}/api/Vocabularies/FindByWord?keyword={name}");
 
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
@@ -52,18 +52,16 @@ namespace DictionaryEngViet
                 throw;
             }
         }
-        public static async Task<List<Root>> GetWord(string name)
+        public static async Task<Root> FindById(int id)
         {
-            _httpClient.BaseAddress = new Uri(_endpoint);
-
-            try
+           try
             {
                 // Thực hiện yêu cầu GET
-                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Volcabularies/GetWord?word={name}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Vocabularies/FindById?id={id}");
 
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
-                List<Root> result = JsonConvert.DeserializeObject<List<Root>>(content);
+                Root result = JsonConvert.DeserializeObject<Root>(content);
                 return result;
             }
             catch
@@ -86,6 +84,20 @@ namespace DictionaryEngViet
 
             }
         }
-        
+        public static async Task UpdateWord(int id, Root vocabulary)
+        {
+               
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{_endpoint}/api/Vocabularies/Update?id={id}", vocabulary);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi gọi API: {ex.Message}");
+
+            }
+        }
+
     }
 }

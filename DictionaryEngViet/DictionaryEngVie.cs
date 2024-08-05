@@ -35,8 +35,22 @@ namespace DictionaryEngViet
 
         private void button2_Click(object sender, EventArgs e)
         {
-                UpdateWord form = new UpdateWord(1);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Lấy hàng được chọn đầu tiên
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                // Lấy giá trị của ô đầu tiên
+                var cellValue = selectedRow.Cells[0].Value;
+
+                UpdateWord form = new UpdateWord((int)cellValue);
                 form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No row selected.");
+            }
+            
             
         }
 

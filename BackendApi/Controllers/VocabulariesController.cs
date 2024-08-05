@@ -23,7 +23,7 @@ namespace BackendApi.Controllers
             return _db.Vocabulary.Where(name => name.Word.Contains(keyword)).ToList(); // FindByWord thi can phai truyen vao keyword de tim, tuc la tim tat ca nhung tu Contain keyword
         }
 
-        [HttpGet("GetWord")]
+        [HttpGet("FindById")]
         public ActionResult<Entities.Vocabulary> FindById(int id)
         {
             try
@@ -44,6 +44,27 @@ namespace BackendApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        //[HttpGet("GetWord")]
+        //public ActionResult<Entities.Vocabulary> GetWord(string name)
+        //{
+        //    try
+        //    {
+        //        var exists = _db.Vocabulary.Select(n => n.Word);
+        //        if (exists != null)
+        //        {
+        //            return Ok(exists);
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("Create")]
         public ActionResult Create(Entities.Vocabulary vocabulary)
         {

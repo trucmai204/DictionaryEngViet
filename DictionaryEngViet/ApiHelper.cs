@@ -57,8 +57,8 @@ namespace DictionaryEngViet
            try
             {
                 // Thực hiện yêu cầu GET
-                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Vocabularies/FindById?id={id}");
-
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_endpoint}/api/Vocabularies/FindById?id={id}");
+               
                 response.EnsureSuccessStatusCode();
                 string content = await response.Content.ReadAsStringAsync();
                 Root result = JsonConvert.DeserializeObject<Root>(content);
@@ -69,6 +69,19 @@ namespace DictionaryEngViet
                 throw;
             }
         }
+        //public static async Task GetWord(string word)
+        //{
+        //    try
+        //    {
+        //        HttpResponseMessage message = await _httpClient.GetAsync($"{_endpoint}/api/Vocabularies/GetWord?name={word}");
+        //        message.EnsureSuccessStatusCode();
+           
+        //    }
+        //    catch 
+        //    {
+        //        throw;
+        //    }
+        //}
         public static async Task CreateNewWord(Root vocabulary)
         {
             var requestBody = JsonConvert.SerializeObject(vocabulary);

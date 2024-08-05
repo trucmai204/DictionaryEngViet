@@ -28,7 +28,6 @@ namespace DictionaryEngViet
 
             Root newVocabulary = new Root
             {
-
                 Word = comboBox1.Text,
                 WordTypeId = (AddWordTypeCb.SelectedIndex + 1),
                 Pronounciation = AddPronouTxt.Text,
@@ -37,9 +36,15 @@ namespace DictionaryEngViet
             await ApiHelper.UpdateWord(id, newVocabulary);
         }
 
-        private void UpdateWord_Load(object sender, EventArgs e)
+        private async void UpdateWord_Load(object sender, EventArgs e)
         {
-
+            var wordData = await ApiHelper.FindById(id);
+            comboBox1.Text = wordData.Word;
+            AddWordTypeCb.SelectedIndex = (int)wordData.WordTypeId - 1;
+            AddPronouTxt.Text = wordData.Pronounciation;
+            DescriptWordRtb.Text = wordData.Description;
         }
+
+        
     }
 }
